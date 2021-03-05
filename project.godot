@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "game",
 "language": "GDScript",
 "path": "res://game.gd"
+}, {
+"base": "Node",
+"class": "tile",
+"language": "GDScript",
+"path": "res://tile.gd"
 } ]
 _global_script_class_icons={
-"game": ""
+"game": "",
+"tile": ""
 }
 
 [application]

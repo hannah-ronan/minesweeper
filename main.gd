@@ -9,8 +9,10 @@ func _on_small_pressed():
 
 
 func _on_medium_pressed():
-	pass # Replace with function body.
+	var medium_game = game.new()
+	medium_game.create_grid(20)
 
 
 func _on_large_pressed():
-	pass # Replace with function body.
+	var large_game = game.new()
+	large_game.create_grid(30)

@@ -16,8 +16,14 @@ _global_script_class_icons={
 [application]
 
 config/name="minesweeper"
+run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=600
 
 [rendering]
 
+environment/default_clear_color=Color( 0.564706, 0.996078, 0.913725, 1 )
 environment/default_environment="res://default_env.tres"

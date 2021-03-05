@@ -24,7 +24,8 @@ func create_grid():
 				if tile.x_loc == randx and tile.y_loc==randy:
 					tile.is_mine = true
 					mine_count+=1
-	#update_numbers()
+	update_corners()
+	update_numbers()
 
 func update_corners():
 	#define which tiles are corners 

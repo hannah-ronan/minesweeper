@@ -1,4 +1,4 @@
-extends Label
+extends Button
 
 class_name tile
 var is_mine
@@ -23,3 +23,7 @@ func _init():
 	self.size = 10
 
 	
+
+
+func _on_Button_pressed():
+	print (edge_id)

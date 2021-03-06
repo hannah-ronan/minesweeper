@@ -37,6 +37,5 @@ func draw_grid(grid):
 	for row in grid.tiles:
 		for tile in row:
 			grid.add_child(tile)
-			var label_size = Vector2(500/grid.size,500/grid.size)
-			tile.set_size(label_size)
+			
 	

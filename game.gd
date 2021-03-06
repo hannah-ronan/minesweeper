@@ -3,35 +3,39 @@ extends GridContainer
 class_name game
 var tiles = []
 var tile_class = load("res://tile.tscn")
-var size = self.columns
+var size = 5
 
 
 
 func create_grid():
-	randomize()
 	#create the game grid, filled only with 0s then populate it with mines
-	#the grid gets size*2 mines on it
+	#the grid gets size*3 mines on it
+	randomize()#this is here so the board is different every time
 	for y in range(size):
 		tiles.append([])
 		for x in range(size):
 			var new_tile = tile_class.instance()
 			new_tile.x_loc = x
-			new_tile.y_loc =y
-			new_tile.size = size
+			new_tile.y_loc = y
 			tiles[y].append(new_tile)
 			
-	var mine_count = 0
-	while mine_count<(size*3):
-		var randx = randi() % tiles.size()
-		var randy = randi() % tiles.size()
+	var mines_placed = 0
+	while mines_placed<(size*3):
+		#place 3X the size of the grid number of mines into the game
+		var randx = randi() % size
+		var randy = randi() % size
 		for row in tiles:
 			for tile in row:
 				if tile.x_loc == randx and tile.y_loc==randy and tile.is_mine==false:
 					tile.is_mine = true
-					mine_count+=1
-	update_corners()
-	update_numbers()
-
+					mines_placed+=1
+	mine_tally()
+	for row in tiles:
+		for tile in row:
+			if !tile.is_mine:
+				tile.text = str(tile.mine_count)
+"""
+this is a dumb way of counting mines
 func update_corners():
 	#define which tiles are corners 
 	for row in tiles:
@@ -54,16 +58,16 @@ func update_numbers():
 	#loop through all tiles in the grid to check how many mines are around them and update the tiles array 
 	for row in tiles:
 		for tile in row:
-			if !tile.is_corner and !tile.is_edge:
-				check_all(tile)
-			elif tile.is_corner:
-				check_corner(tile)
-			elif tile.is_edge:
-				check_edge(tile)
-			if tile.is_mine:
-				tile.text = "X"
-			else:
+			if !tile.is_mine:	
+				if !tile.is_corner and !tile.is_edge:
+					check_all(tile)
+				elif tile.is_corner:
+					check_corner(tile)
+				elif tile.is_edge:
+					check_edge(tile)
 				tile.text = str(tile.mine_count)
+			else:
+				tile.text = "X"
 func check_all(tile):
 	check_tile(tile, -1,-1)
 	check_tile(tile, 0,-1)
@@ -124,4 +128,30 @@ func check_corner(tile):
 func check_tile(tile, xoffset, yoffset):
 	if tiles[tile.x_loc+xoffset][tile.y_loc+yoffset].is_mine:
 		tile.mine_count +=1
-	
+"""
+
+func mine_tally():
+	for row in tiles:
+		for tile in row:
+			if tile.is_mine:
+				tile_check(tile,-1,-1)
+				tile_check(tile,0,-1)
+				tile_check(tile,1,-1)
+				tile_check(tile,-1,0)
+				tile_check(tile,1,0)
+				tile_check(tile,-1,1)
+				tile_check(tile,0,1)
+				tile_check(tile,1,1)
+				tile.text = "X"
+				tile.add_color_override("font_color", Color(1,0,0,1))
+
+
+
+func tile_check(tile,xoffset,yoffset):
+	#checks to see if the tile exists and if it does then increment its minecount
+	if (tile.x_loc+xoffset)>=0 and (tile.y_loc+yoffset)>=0 and (tile.x_loc+xoffset)<=(size-1) and (tile.y_loc+yoffset)<=(size-1):
+		if !tiles[tile.x_loc+xoffset][tile.y_loc+yoffset].is_mine:
+			tiles[tile.x_loc+xoffset][tile.y_loc+yoffset].mine_count += 1
+				
+				
+				

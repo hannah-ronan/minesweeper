@@ -1,19 +1,24 @@
-extends Node2D
+extends GridContainer
 
 class_name game
 var tiles = []
-var tile = load("res://tile.gd")
-var size = 0
+var tile_class = load("res://tile.tscn")
+var size = self.columns
+
+
+
 func create_grid():
+	randomize()
 	#create the game grid, filled only with 0s then populate it with mines
 	#the grid gets size*2 mines on it
 	for y in range(size):
 		tiles.append([])
 		for x in range(size):
-			var new_tile = tile.new()
-			tiles[y].append(new_tile)
+			var new_tile = tile_class.instance()
 			new_tile.x_loc = x
-			new_tile.y_loc = y
+			new_tile.y_loc =y
+			new_tile.size = size
+			tiles[y].append(new_tile)
 			
 	var mine_count = 0
 	while mine_count<(size*3):
@@ -21,7 +26,7 @@ func create_grid():
 		var randy = randi() % tiles.size()
 		for row in tiles:
 			for tile in row:
-				if tile.x_loc == randx and tile.y_loc==randy:
+				if tile.x_loc == randx and tile.y_loc==randy and tile.is_mine==false:
 					tile.is_mine = true
 					mine_count+=1
 	update_corners()
@@ -55,7 +60,10 @@ func update_numbers():
 				check_corner(tile)
 			elif tile.is_edge:
 				check_edge(tile)
-				
+			if tile.is_mine:
+				tile.text = "X"
+			else:
+				tile.text = str(tile.mine_count)
 func check_all(tile):
 	check_tile(tile, -1,-1)
 	check_tile(tile, 0,-1)

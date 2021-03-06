@@ -2,5 +2,13 @@
 
 [ext_resource path="res://game.gd" type="Script" id=1]
 
-[node name="Node2D" type="Node2D"]
+[node name="game" type="GridContainer"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 550.0
+margin_bottom = 550.0
+columns = 10
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

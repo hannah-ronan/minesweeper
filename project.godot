@@ -9,12 +9,12 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node2D",
+"base": "GridContainer",
 "class": "game",
 "language": "GDScript",
 "path": "res://game.gd"
 }, {
-"base": "Node",
+"base": "Label",
 "class": "tile",
 "language": "GDScript",
 "path": "res://tile.gd"

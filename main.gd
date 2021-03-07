@@ -51,6 +51,7 @@ func _on_quit_button_pressed():
 	menu.visible = true
 	quit_button.disabled = true
 	lose_message.visible = false
+	win_message.visible = false
 
 func game_over(game_instance):
 	for row in game_instance.tiles:

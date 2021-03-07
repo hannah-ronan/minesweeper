@@ -47,7 +47,7 @@ func create_grid():
 			new_tile.connect("tile_clicked",self, "tile_clicked")
 			
 	var mines_placed = 0
-	while mines_placed<(size):
+	while mines_placed<(floor(size*1.5)):
 		#place 3X the size of the grid number of mines into the game
 		var randx = randi() % size
 		var randy = randi() % size
@@ -60,7 +60,8 @@ func create_grid():
 	for row in tiles:
 		for tile in row:
 			if !tile.is_mine:
-				tile.text = " "+str(tile.mine_count)+" "
+				if tile.mine_count != 0:
+					tile.text = " "+str(tile.mine_count)+" "
 			else:
 				tile.text = " X "
 
@@ -79,10 +80,14 @@ func mine_tally():
 				
 func check_adj_tiles(tile):
 	if !tile.is_mine:
+		tile_check("count_check",tile,-1,-1)
 		tile_check("count_check",tile,0,-1)
+		tile_check("count_check",tile,1,-1)
 		tile_check("count_check",tile,-1,0)
 		tile_check("count_check",tile,1,0)
+		tile_check("count_check",tile,-1,1)
 		tile_check("count_check",tile,0,1)
+		tile_check("count_check",tile,1,1)
 	
 func tile_check(mode,tile,xoffset,yoffset):
 	#checks to see if the tile exists and if it does then increment its minecount
@@ -91,9 +96,13 @@ func tile_check(mode,tile,xoffset,yoffset):
 	if (new_x)>=0 and (new_y)>=0 and (new_x)<=(size-1) and (new_y)<=(size-1):
 		#found the bug with mine_count being off... the tiles array is in the format tiles[y][x] not tiles[x][y] as I had before >:(
 		if mode == "count_check":
-			if tiles[new_y][new_x].mine_count == tile.mine_count and !tiles[new_y][new_x].disabled:
-				tiles[new_y][new_x].disabled = true
-				check_adj_tiles(tiles[new_y][new_x])
+			if tile.mine_count==0:
+				if tiles[new_y][new_x].mine_count == tile.mine_count and !tiles[new_y][new_x].disabled:
+					tiles[new_y][new_x].disabled = true
+					check_adj_tiles(tiles[new_y][new_x])
+				elif !tiles[new_y][new_x].disabled and !tiles[new_y][new_x].is_mine:
+					tiles[new_y][new_x].disabled = true
+			
 		if mode=="mine_check":
 			if !tiles[new_y][new_x].is_mine:
 				tiles[new_y][new_x].mine_count += 1

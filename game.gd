@@ -4,7 +4,7 @@ class_name game
 var tiles = []
 var tile_class = load("res://tile.tscn")
 var size = 10
-#onready var main = get_owner()
+signal game_over
 """
 #debug tools, tile_clicked gets called whenever a tile is clicked, imagine that, and gets passed the tiles x and y in the tiles array
 func tile_clicked(x_loc, y_loc):
@@ -86,5 +86,7 @@ func tile_check(tile,xoffset,yoffset):
 func tile_clicked(x_loc,y_loc):
 	#function called when game receives the signal emitted from the tile node that it had been clicked
 	tiles[y_loc][x_loc].disabled = true
+	if tiles[y_loc][x_loc].is_mine:
+		emit_signal("game_over", self)
 
 	

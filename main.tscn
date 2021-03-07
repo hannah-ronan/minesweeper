@@ -6,6 +6,7 @@
 [ext_resource path="res://main.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=4]
+size = 20
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=1]
@@ -24,6 +25,13 @@ font_data = ExtResource( 3 )
 [node name="main" type="Node2D"]
 script = ExtResource( 4 )
 
+[node name="center_container" type="CenterContainer" parent="."]
+margin_right = 600.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="quit_button" type="Button" parent="."]
 margin_left = 17.2997
 margin_top = 16.9962
@@ -40,14 +48,7 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 1, 0, 0.603922, 1 )
 custom_colors/font_color_pressed = Color( 1, 0.517647, 0.890196, 1 )
 disabled = true
-text = "< Quit"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="center_container" type="CenterContainer" parent="."]
-margin_right = 600.0
-margin_bottom = 600.0
+text = "Quit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -61,9 +62,9 @@ __meta__ = {
 }
 
 [node name="title" type="Label" parent="main_menu"]
-margin_top = 202.0
+margin_top = 217.0
 margin_right = 600.0
-margin_bottom = 263.0
+margin_bottom = 278.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "minesweeper"
@@ -74,9 +75,9 @@ __meta__ = {
 }
 
 [node name="select_size" type="Label" parent="main_menu"]
-margin_top = 267.0
+margin_top = 282.0
 margin_right = 600.0
-margin_bottom = 308.0
+margin_bottom = 323.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "select size"
@@ -87,9 +88,9 @@ __meta__ = {
 }
 
 [node name="size_options" type="VBoxContainer" parent="main_menu"]
-margin_top = 312.0
+margin_top = 327.0
 margin_right = 600.0
-margin_bottom = 398.0
+margin_bottom = 383.0
 alignment = 1
 
 [node name="small" type="Button" parent="main_menu/size_options"]
@@ -110,7 +111,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="medium" type="Button" parent="main_menu/size_options"]
+[node name="big" type="Button" parent="main_menu/size_options"]
 margin_top = 30.0
 margin_right = 600.0
 margin_bottom = 56.0
@@ -124,30 +125,10 @@ custom_colors/font_color_disabled = Color( 1, 0.784314, 0.929412, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 1, 0, 0.603922, 1 )
 custom_colors/font_color_pressed = Color( 1, 0.517647, 0.890196, 1 )
-text = "medium"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="large" type="Button" parent="main_menu/size_options"]
-margin_top = 60.0
-margin_right = 600.0
-margin_bottom = 86.0
-custom_styles/hover = ExtResource( 2 )
-custom_styles/pressed = ExtResource( 2 )
-custom_styles/focus = ExtResource( 2 )
-custom_styles/disabled = ExtResource( 2 )
-custom_styles/normal = ExtResource( 2 )
-custom_fonts/font = SubResource( 3 )
-custom_colors/font_color_disabled = Color( 1, 0.784314, 0.929412, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 1, 0, 0.603922, 1 )
-custom_colors/font_color_pressed = Color( 1, 0.517647, 0.890196, 1 )
-text = "large"
+text = "big"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="quit_button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="main_menu/size_options/small" to="." method="_on_small_pressed"]
-[connection signal="pressed" from="main_menu/size_options/medium" to="." method="_on_medium_pressed"]
-[connection signal="pressed" from="main_menu/size_options/large" to="." method="_on_large_pressed"]
+[connection signal="pressed" from="main_menu/size_options/big" to="." method="_on_big_pressed"]

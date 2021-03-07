@@ -1,7 +1,8 @@
 extends Node2D
 var game_class = load("res://game.tscn")
 onready var menu = get_node("main_menu")
-onready var quit_button = get_node("quit_button")
+onready var quit_button = get_node("in_game_controls/quit_button")
+onready var lose_message = get_node("in_game_controls/loser")
 
 func _on_small_pressed():
 	menu.visible=false
@@ -46,6 +47,7 @@ func _on_quit_button_pressed():
 	get_node("center_container/game").queue_free()
 	menu.visible = true
 	quit_button.disabled = true
+	lose_message.visible = false
 
 func game_over(game_instance):
 	for row in game_instance.tiles:
@@ -53,3 +55,4 @@ func game_over(game_instance):
 			if tile.is_mine:
 				tile.set("custom_colors/font_color_disabled", Color(1,0,0))
 			tile.disabled = true
+	lose_message.visible = true

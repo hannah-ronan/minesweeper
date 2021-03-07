@@ -26,7 +26,7 @@ func tile_clicked(x_loc, y_loc):
 func add_adj_tiles(xoffset,yoffset, adj_tiles,x_loc, y_loc):
 	#checks to see if the tile exists and if it does then increment its minecount
 	if (x_loc+xoffset)>=0 and (y_loc+yoffset)>=0 and (x_loc+xoffset)<=(9) and (y_loc+yoffset)<=(9):
-		adj_tiles.append(tiles[x_loc+xoffset][y_loc+yoffset])
+		adj_tiles.append(tiles[y_loc+yoffset][x_loc+xoffset])
 	return adj_tiles
 """
 
@@ -60,32 +60,47 @@ func create_grid():
 		for tile in row:
 			if !tile.is_mine:
 				tile.text = " "+str(tile.mine_count)+" "
-
+			else:
+				tile.text = " X "
 
 func mine_tally():
 	for row in tiles:
 		for tile in row:
 			if tile.is_mine:
-				tile_check(tile,-1,-1)
-				tile_check(tile,0,-1)
-				tile_check(tile,1,-1)
-				tile_check(tile,-1,0)
-				tile_check(tile,1,0)
-				tile_check(tile,-1,1)
-				tile_check(tile,0,1)
-				tile_check(tile,1,1)
-				tile.text = " X "
-
-func tile_check(tile,xoffset,yoffset):
+				tile_check("mine_check",tile,-1,-1)
+				tile_check("mine_check",tile,0,-1)
+				tile_check("mine_check",tile,1,-1)
+				tile_check("mine_check",tile,-1,0)
+				tile_check("mine_check",tile,1,0)
+				tile_check("mine_check",tile,-1,1)
+				tile_check("mine_check",tile,0,1)
+				tile_check("mine_check",tile,1,1)
+				
+func check_adj_tiles(tile):
+	if !tile.is_mine:
+		tile_check("count_check",tile,0,-1)
+		tile_check("count_check",tile,-1,0)
+		tile_check("count_check",tile,1,0)
+		tile_check("count_check",tile,0,1)
+	
+func tile_check(mode,tile,xoffset,yoffset):
 	#checks to see if the tile exists and if it does then increment its minecount
-	if (tile.x_loc+xoffset)>=0 and (tile.y_loc+yoffset)>=0 and (tile.x_loc+xoffset)<=(size-1) and (tile.y_loc+yoffset)<=(size-1):
+	var new_x = tile.x_loc+xoffset
+	var new_y = tile.y_loc+yoffset
+	if (new_x)>=0 and (new_y)>=0 and (new_x)<=(size-1) and (new_y)<=(size-1):
 		#found the bug with mine_count being off... the tiles array is in the format tiles[y][x] not tiles[x][y] as I had before >:(
-		if !tiles[tile.y_loc+yoffset][tile.x_loc+xoffset].is_mine:
-			tiles[tile.y_loc+yoffset][tile.x_loc+xoffset].mine_count += 1
+		if mode == "count_check":
+			if tiles[new_y][new_x].mine_count == tile.mine_count and !tiles[new_y][new_x].disabled:
+				tiles[new_y][new_x].disabled = true
+				check_adj_tiles(tiles[new_y][new_x])
+		if mode=="mine_check":
+			if !tiles[new_y][new_x].is_mine:
+				tiles[new_y][new_x].mine_count += 1
 
 func tile_clicked(x_loc,y_loc):
 	#function called when game receives the signal emitted from the tile node that it had been clicked
 	tiles[y_loc][x_loc].disabled = true
+	check_adj_tiles(tiles[y_loc][x_loc])
 	if tiles[y_loc][x_loc].is_mine:
 		emit_signal("game_over", self)
 

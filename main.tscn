@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://BungeeShade-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://empty_style.tres" type="StyleBox" id=2]
 [ext_resource path="res://Bungee-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://main.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -21,6 +24,27 @@ font_data = ExtResource( 3 )
 [node name="main" type="Node2D"]
 script = ExtResource( 4 )
 
+[node name="quit_button" type="Button" parent="."]
+margin_left = 17.2997
+margin_top = 16.9962
+margin_right = 78.2997
+margin_bottom = 36.9962
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 2 )
+custom_styles/focus = ExtResource( 2 )
+custom_styles/disabled = ExtResource( 2 )
+custom_styles/normal = ExtResource( 2 )
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color_disabled = Color( 0.564706, 0.996078, 0.913725, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 1, 0, 0.603922, 1 )
+custom_colors/font_color_pressed = Color( 1, 0.517647, 0.890196, 1 )
+disabled = true
+text = "< Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="center_container" type="CenterContainer" parent="."]
 margin_right = 600.0
 margin_bottom = 600.0
@@ -28,7 +52,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="menu" type="VBoxContainer" parent="."]
+[node name="main_menu" type="VBoxContainer" parent="."]
 margin_right = 600.0
 margin_bottom = 600.0
 alignment = 1
@@ -36,7 +60,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="title" type="Label" parent="menu"]
+[node name="title" type="Label" parent="main_menu"]
 margin_top = 202.0
 margin_right = 600.0
 margin_bottom = 263.0
@@ -49,7 +73,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="select_size" type="Label" parent="menu"]
+[node name="select_size" type="Label" parent="main_menu"]
 margin_top = 267.0
 margin_right = 600.0
 margin_bottom = 308.0
@@ -62,13 +86,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="size_options" type="VBoxContainer" parent="menu"]
+[node name="size_options" type="VBoxContainer" parent="main_menu"]
 margin_top = 312.0
 margin_right = 600.0
 margin_bottom = 398.0
 alignment = 1
 
-[node name="small" type="Button" parent="menu/size_options"]
+[node name="small" type="Button" parent="main_menu/size_options"]
 margin_right = 600.0
 margin_bottom = 26.0
 custom_styles/hover = ExtResource( 2 )
@@ -86,7 +110,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="medium" type="Button" parent="menu/size_options"]
+[node name="medium" type="Button" parent="main_menu/size_options"]
 margin_top = 30.0
 margin_right = 600.0
 margin_bottom = 56.0
@@ -105,7 +129,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="large" type="Button" parent="menu/size_options"]
+[node name="large" type="Button" parent="main_menu/size_options"]
 margin_top = 60.0
 margin_right = 600.0
 margin_bottom = 86.0
@@ -123,6 +147,7 @@ text = "large"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="menu/size_options/small" to="." method="_on_small_pressed"]
-[connection signal="pressed" from="menu/size_options/medium" to="." method="_on_medium_pressed"]
-[connection signal="pressed" from="menu/size_options/large" to="." method="_on_large_pressed"]
+[connection signal="pressed" from="quit_button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="main_menu/size_options/small" to="." method="_on_small_pressed"]
+[connection signal="pressed" from="main_menu/size_options/medium" to="." method="_on_medium_pressed"]
+[connection signal="pressed" from="main_menu/size_options/large" to="." method="_on_large_pressed"]

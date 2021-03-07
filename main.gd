@@ -1,10 +1,9 @@
 extends Node2D
 var game_class = load("res://game.tscn")
-onready var menu = get_node("menu")
+onready var menu = get_node("main_menu")
+onready var quit_button = get_node("quit_button")
+signal quit_clicked
 
-
-func on_ready():
-	pass
 
 func _on_small_pressed():
 	menu.visible=false
@@ -14,6 +13,7 @@ func _on_small_pressed():
 	small_game.size = 10
 	get_node("center_container").add_child(small_game)
 	draw_grid(small_game)
+	quit_button.disabled = false
 
 func _on_medium_pressed():
 	menu.visible=false
@@ -23,7 +23,7 @@ func _on_medium_pressed():
 	medium_game.create_grid()
 	get_node("center_container").add_child(medium_game)
 	draw_grid(medium_game)
-
+	quit_button.disabled = false
 
 func _on_large_pressed():
 	menu.visible=false
@@ -33,10 +33,14 @@ func _on_large_pressed():
 	large_game.create_grid()
 	get_node("center_container").add_child(large_game)
 	draw_grid(large_game)
-
+	quit_button.disabled = false
+	
 func draw_grid(grid):
 	for row in grid.tiles:
 		for tile in row:
 			grid.add_child(tile)
-			
-	
+
+func _on_quit_button_pressed():
+	get_node("center_container/game").queue_free()
+	menu.visible = true
+	quit_button.disabled = true

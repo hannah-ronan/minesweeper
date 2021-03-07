@@ -22,6 +22,8 @@ func _init():
 
 func _on_Button_pressed():
 	emit_signal("tile_clicked", x_loc, y_loc)
-	print_tree()
 
 	
+
+
+

@@ -4,8 +4,9 @@ class_name game
 var tiles = []
 var tile_class = load("res://tile.tscn")
 var size = 10
-
-
+#onready var main = get_owner()
+"""
+#debug tools, tile_clicked gets called whenever a tile is clicked, imagine that, and gets passed the tiles x and y in the tiles array
 func tile_clicked(x_loc, y_loc):
 	var adj_tiles = []
 	adj_tiles = add_adj_tiles(-1,-1, adj_tiles,x_loc, y_loc)
@@ -27,7 +28,8 @@ func add_adj_tiles(xoffset,yoffset, adj_tiles,x_loc, y_loc):
 	if (x_loc+xoffset)>=0 and (y_loc+yoffset)>=0 and (x_loc+xoffset)<=(9) and (y_loc+yoffset)<=(9):
 		adj_tiles.append(tiles[x_loc+xoffset][y_loc+yoffset])
 	return adj_tiles
-	
+"""
+
 	
 func create_grid():
 	#create the game grid, filled only with 0s then populate it with mines
@@ -40,6 +42,7 @@ func create_grid():
 			new_tile.x_loc = x
 			new_tile.y_loc = y
 			tiles[y].append(new_tile)
+			new_tile.set_name(str(x)+", "+str(y))
 			new_tile.connect("tile_clicked",self, "tile_clicked")
 			
 	var mines_placed = 0
@@ -56,102 +59,8 @@ func create_grid():
 	for row in tiles:
 		for tile in row:
 			if !tile.is_mine:
-				tile.text = str(tile.mine_count)
-"""
-this is a dumb way of counting mines
-func update_corners():
-	#define which tiles are corners 
-	for row in tiles:
-		for tile in row:
-			if tile.x_loc == 0 or tile.x_loc ==(size-1) or tile.y_loc == 0 or tile.y_loc ==(size-1):
-				tile.is_edge = true
-				if tile.y_loc == 0:
-					tile.edge_id += "top"
-				if tile.y_loc == (size-1):
-					tile.edge_id += "bottom"
-				if tile.x_loc == 0:
-					tile.edge_id += "left"
-				if tile.x_loc == (size-1):
-					tile.edge_id += "right"
-				
-				if (tile.x_loc==0 and tile.y_loc==0)or (tile.x_loc==0 and tile.y_loc==(size-1))or(tile.x_loc==(size-1) and tile.y_loc==0)or(tile.x_loc==(size-1) and tile.y_loc==(size-1)):
-					tile.is_corner = true
+				tile.text = " "+str(tile.mine_count)+" "
 
-func update_numbers():
-	#loop through all tiles in the grid to check how many mines are around them and update the tiles array 
-	for row in tiles:
-		for tile in row:
-			if !tile.is_mine:	
-				if !tile.is_corner and !tile.is_edge:
-					check_all(tile)
-				elif tile.is_corner:
-					check_corner(tile)
-				elif tile.is_edge:
-					check_edge(tile)
-				tile.text = str(tile.mine_count)
-			else:
-				tile.text = "X"
-func check_all(tile):
-	check_tile(tile, -1,-1)
-	check_tile(tile, 0,-1)
-	check_tile(tile, 1,-1)
-	check_tile(tile, -1,0)
-	check_tile(tile, 1,0)
-	check_tile(tile, -1,1)
-	check_tile(tile, 0,1)
-	check_tile(tile, 1,1)
-	
-func check_edge(tile):
-	if tile.edge_id=="right":
-		check_tile(tile, 0,-1)
-		check_tile(tile, -1,-1)
-		check_tile(tile, -1,0)
-		check_tile(tile, -1,1)
-		check_tile(tile, 0,1)
-		
-	if tile.edge_id=="left":
-		check_tile(tile, 0,-1)
-		check_tile(tile, 1,-1)
-		check_tile(tile, 1,0)
-		check_tile(tile, 1,1)
-		check_tile(tile, 0,1)
-		
-	if tile.edge_id=="top":
-		check_tile(tile, -1,0)
-		check_tile(tile, -1,1)
-		check_tile(tile, 0,1)
-		check_tile(tile, 1,1)
-		check_tile(tile, 1,0)
-		
-	if tile.edge_id=="bottom":
-		check_tile(tile, -1,0)
-		check_tile(tile, -1,-1)
-		check_tile(tile, 0,-1)
-		check_tile(tile, 1,-1)
-		check_tile(tile, 1,0)
-
-func check_corner(tile):
-	if tile.edge_id=="topright":
-		check_tile(tile, -1,0)
-		check_tile(tile, -1,1)
-		check_tile(tile, 0,1)
-	if tile.edge_id=="bottomright":
-		check_tile(tile, -1,0)
-		check_tile(tile, -1,-1)
-		check_tile(tile, 0,-1)
-	if tile.edge_id=="topleft":
-		check_tile(tile, 1,0)
-		check_tile(tile, 1,1)
-		check_tile(tile, 0,1)
-	if tile.edge_id=="bottomleft":
-		check_tile(tile, 0,-1)
-		check_tile(tile, 1,-1)
-		check_tile(tile, 1,0)
-	
-func check_tile(tile, xoffset, yoffset):
-	if tiles[tile.x_loc+xoffset][tile.y_loc+yoffset].is_mine:
-		tile.mine_count +=1
-"""
 
 func mine_tally():
 	for row in tiles:
@@ -165,16 +74,17 @@ func mine_tally():
 				tile_check(tile,-1,1)
 				tile_check(tile,0,1)
 				tile_check(tile,1,1)
-				tile.text = "X"
-				tile.add_color_override("font_color", Color(1,0,0,1))
-
-
+				tile.text = " X "
 
 func tile_check(tile,xoffset,yoffset):
 	#checks to see if the tile exists and if it does then increment its minecount
 	if (tile.x_loc+xoffset)>=0 and (tile.y_loc+yoffset)>=0 and (tile.x_loc+xoffset)<=(size-1) and (tile.y_loc+yoffset)<=(size-1):
-		if !tiles[tile.x_loc+xoffset][tile.y_loc+yoffset].is_mine:
-			tiles[tile.x_loc+xoffset][tile.y_loc+yoffset].mine_count += 1
-				
-				
-				
+		#found the bug with mine_count being off... the tiles array is in the format tiles[y][x] not tiles[x][y] as I had before >:(
+		if !tiles[tile.y_loc+yoffset][tile.x_loc+xoffset].is_mine:
+			tiles[tile.y_loc+yoffset][tile.x_loc+xoffset].mine_count += 1
+
+func tile_clicked(x_loc,y_loc):
+	#function called when game receives the signal emitted from the tile node that it had been clicked
+	tiles[y_loc][x_loc].disabled = true
+
+	

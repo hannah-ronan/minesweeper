@@ -10,8 +10,8 @@ func _on_small_pressed():
 	menu.visible=false
 	var small_game = game_class.instance()
 	small_game.create_grid()
-	small_game.columns = 5
-	small_game.size = 5
+	small_game.columns = 10
+	small_game.size = 10
 	get_node("center_container").add_child(small_game)
 	draw_grid(small_game)
 

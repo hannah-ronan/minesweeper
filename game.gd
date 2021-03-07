@@ -3,10 +3,32 @@ extends GridContainer
 class_name game
 var tiles = []
 var tile_class = load("res://tile.tscn")
-var size = 5
+var size = 10
 
 
-
+func tile_clicked(x_loc, y_loc):
+	var adj_tiles = []
+	adj_tiles = add_adj_tiles(-1,-1, adj_tiles,x_loc, y_loc)
+	adj_tiles = add_adj_tiles(0,-1, adj_tiles,x_loc, y_loc)
+	adj_tiles = add_adj_tiles(1,-1, adj_tiles,x_loc, y_loc)
+	
+	adj_tiles = add_adj_tiles(-1,0, adj_tiles,x_loc, y_loc)
+	adj_tiles = add_adj_tiles(1,0, adj_tiles,x_loc, y_loc)
+	
+	adj_tiles = add_adj_tiles(-1,1, adj_tiles,x_loc, y_loc)
+	adj_tiles = add_adj_tiles(0,1, adj_tiles,x_loc, y_loc)
+	adj_tiles = add_adj_tiles(1,1, adj_tiles,x_loc, y_loc)
+	
+	for adj_tile in adj_tiles:
+		print (adj_tile.x_loc," ", adj_tile.y_loc," ",adj_tile.is_mine)
+	
+func add_adj_tiles(xoffset,yoffset, adj_tiles,x_loc, y_loc):
+	#checks to see if the tile exists and if it does then increment its minecount
+	if (x_loc+xoffset)>=0 and (y_loc+yoffset)>=0 and (x_loc+xoffset)<=(9) and (y_loc+yoffset)<=(9):
+		adj_tiles.append(tiles[x_loc+xoffset][y_loc+yoffset])
+	return adj_tiles
+	
+	
 func create_grid():
 	#create the game grid, filled only with 0s then populate it with mines
 	#the grid gets size*3 mines on it
@@ -18,6 +40,7 @@ func create_grid():
 			new_tile.x_loc = x
 			new_tile.y_loc = y
 			tiles[y].append(new_tile)
+			new_tile.connect("tile_clicked",self, "tile_clicked")
 			
 	var mines_placed = 0
 	while mines_placed<(size*3):

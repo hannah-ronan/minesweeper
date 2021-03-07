@@ -5,6 +5,7 @@ var tiles = []
 var tile_class = load("res://tile.tscn")
 var size = 10
 signal game_over
+signal game_won
 """
 #debug tools, tile_clicked gets called whenever a tile is clicked, imagine that, and gets passed the tiles x and y in the tiles array
 func tile_clicked(x_loc, y_loc):
@@ -33,7 +34,7 @@ func add_adj_tiles(xoffset,yoffset, adj_tiles,x_loc, y_loc):
 	
 func create_grid():
 	#create the game grid, filled only with 0s then populate it with mines
-	#the grid gets size*3 mines on it
+	#the grid gets size*2 mines on it
 	randomize()#this is here so the board is different every time
 	for y in range(size):
 		tiles.append([])
@@ -46,7 +47,7 @@ func create_grid():
 			new_tile.connect("tile_clicked",self, "tile_clicked")
 			
 	var mines_placed = 0
-	while mines_placed<(size*3):
+	while mines_placed<(size):
 		#place 3X the size of the grid number of mines into the game
 		var randx = randi() % size
 		var randy = randi() % size
@@ -103,5 +104,18 @@ func tile_clicked(x_loc,y_loc):
 	check_adj_tiles(tiles[y_loc][x_loc])
 	if tiles[y_loc][x_loc].is_mine:
 		emit_signal("game_over", self)
+	else:
+		check_for_win()
 
-	
+func check_for_win():
+	var revealed_tiles = 0
+	var mines = 0
+	for row in tiles:
+		for tile in row:
+			if tile.disabled:
+				revealed_tiles +=1
+			elif tile.is_mine:
+				mines += 1
+	if mines + revealed_tiles == size*size:
+		print ("game won")
+		emit_signal("game_won",self)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://BungeeShade-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://empty_style.tres" type="StyleBox" id=2]
@@ -26,6 +26,10 @@ font_data = ExtResource( 3 )
 size = 20
 font_data = ExtResource( 3 )
 
+[sub_resource type="DynamicFont" id=6]
+size = 22
+font_data = ExtResource( 3 )
+
 [node name="main" type="Node2D"]
 script = ExtResource( 4 )
 
@@ -39,15 +43,16 @@ __meta__ = {
 [node name="main_menu" type="VBoxContainer" parent="."]
 margin_right = 600.0
 margin_bottom = 600.0
+custom_constants/separation = 30
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="title" type="Label" parent="main_menu"]
-margin_top = 217.0
+margin_top = 204.0
 margin_right = 600.0
-margin_bottom = 278.0
+margin_bottom = 265.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "minesweeper"
@@ -57,10 +62,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="select_size" type="Label" parent="main_menu"]
-margin_top = 282.0
+[node name="size_options" type="VBoxContainer" parent="main_menu"]
+margin_top = 295.0
 margin_right = 600.0
-margin_bottom = 323.0
+margin_bottom = 396.0
+alignment = 1
+
+[node name="select_size" type="Label" parent="main_menu/size_options"]
+margin_right = 600.0
+margin_bottom = 41.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "select size"
@@ -70,15 +80,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="size_options" type="VBoxContainer" parent="main_menu"]
-margin_top = 327.0
-margin_right = 600.0
-margin_bottom = 383.0
-alignment = 1
-
 [node name="small" type="Button" parent="main_menu/size_options"]
+margin_top = 45.0
 margin_right = 600.0
-margin_bottom = 26.0
+margin_bottom = 71.0
 custom_styles/hover = ExtResource( 2 )
 custom_styles/pressed = ExtResource( 2 )
 custom_styles/focus = ExtResource( 2 )
@@ -95,9 +100,9 @@ __meta__ = {
 }
 
 [node name="big" type="Button" parent="main_menu/size_options"]
-margin_top = 30.0
+margin_top = 75.0
 margin_right = 600.0
-margin_bottom = 56.0
+margin_bottom = 101.0
 custom_styles/hover = ExtResource( 2 )
 custom_styles/pressed = ExtResource( 2 )
 custom_styles/focus = ExtResource( 2 )
@@ -171,6 +176,21 @@ custom_colors/font_color_hover = Color( 1, 0, 0.603922, 1 )
 custom_colors/font_color_pressed = Color( 1, 0.517647, 0.890196, 1 )
 disabled = true
 text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="flag_instructions" type="Label" parent="."]
+visible = false
+margin_right = 600.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 6 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "right click to flag and unflag"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

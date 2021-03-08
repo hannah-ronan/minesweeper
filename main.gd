@@ -9,6 +9,7 @@ onready var flag_instructions = get_node("flag_instructions")
 func _on_small_pressed():
 	#when the small size is chosen create a 10 by 10 grid and hide the main menu
 	menu.visible=false
+	$click_sound.play()
 	var small_game = game_class.instance()
 	small_game.create_grid()
 	small_game.columns = 10
@@ -24,6 +25,7 @@ func _on_small_pressed():
 func _on_big_pressed():
 	#when the big size button is chosen create a 15x15 grid and hide the menu
 	menu.visible=false
+	$click_sound.play()
 	var medium_game = game_class.instance()
 	medium_game.columns = 15
 	medium_game.size = 15
@@ -45,6 +47,7 @@ func draw_grid(grid):
 
 func _on_quit_button_pressed():
 	#when quit is pressed delete all the tiles then the grid
+	$click_sound.play()
 	for child in get_node("center_container/game").get_children():
 		child.queue_free()
 	get_node("center_container/game").queue_free()

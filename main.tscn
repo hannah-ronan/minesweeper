@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://BungeeShade-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://empty_style.tres" type="StyleBox" id=2]
 [ext_resource path="res://Bungee-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://main.gd" type="Script" id=4]
+[ext_resource path="res://audio/click.wav" type="AudioStream" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -194,6 +195,10 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="click_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+volume_db = 7.0
 [connection signal="pressed" from="main_menu/size_options/small" to="." method="_on_small_pressed"]
 [connection signal="pressed" from="main_menu/size_options/big" to="." method="_on_big_pressed"]
 [connection signal="pressed" from="in_game_controls/quit_button" to="." method="_on_quit_button_pressed"]

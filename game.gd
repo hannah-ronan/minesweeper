@@ -90,9 +90,12 @@ func tile_clicked(x_loc,y_loc):
 	tiles[y_loc][x_loc].disabled = true
 	check_adj_tiles(tiles[y_loc][x_loc])
 	if tiles[y_loc][x_loc].is_mine:
+		tiles[y_loc][x_loc].explode()
+		$explode_sound.play()
 		emit_signal("game_over", self)
 	else:
 		tiles[y_loc][x_loc].pop()
+		$safe_sound.play()
 		check_for_win()
 
 func check_for_win():
@@ -106,5 +109,5 @@ func check_for_win():
 			elif tile.is_mine:
 				mines += 1
 	if mines + revealed_tiles == size*size:
-		print ("game won")
+		$win_sound.play()
 		emit_signal("game_won",self)

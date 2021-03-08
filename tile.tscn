@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://tile.gd" type="Script" id=1]
 [ext_resource path="res://Bungee-Regular.ttf" type="DynamicFontData" id=2]
@@ -11,6 +11,12 @@
 [ext_resource path="res://animations/tile_click/tile_click_3.png" type="Texture" id=9]
 [ext_resource path="res://animations/tile_click/tile_click_4.png" type="Texture" id=10]
 [ext_resource path="res://animations/tile_click/tile_click_5.png" type="Texture" id=11]
+[ext_resource path="res://animations/explode/explode_5.png" type="Texture" id=12]
+[ext_resource path="res://animations/explode/explode_1.png" type="Texture" id=13]
+[ext_resource path="res://animations/explode/explode_4.png" type="Texture" id=14]
+[ext_resource path="res://animations/explode/explode_3.png" type="Texture" id=15]
+[ext_resource path="res://animations/explode/explode_2.png" type="Texture" id=16]
+[ext_resource path="res://animations/explode/explode_6.png" type="Texture" id=17]
 
 [sub_resource type="DynamicFont" id=1]
 size = 25
@@ -24,6 +30,11 @@ animations = [ {
 "loop": false,
 "name": "pop",
 "speed": 24.0
+}, {
+"frames": [ null, ExtResource( 13 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 14 ), ExtResource( 12 ), ExtResource( 17 ), null ],
+"loop": false,
+"name": "explode",
+"speed": 16.0
 } ]
 
 [node name="Button" type="Button"]
@@ -47,6 +58,6 @@ __meta__ = {
 position = Vector2( -15.1527, -15.3521 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 2 )
-animation = "pop"
+animation = "explode"
 centered = false
 [connection signal="gui_input" from="." to="." method="_on_Button_gui_input"]

@@ -24,13 +24,16 @@ func _init():
 func pop():
 	$AnimatedSprite.z_index = 10
 	$AnimatedSprite.play("pop")
-
+func explode():
+	$AnimatedSprite.z_index=10
+	$AnimatedSprite.play("explode")
 
 func _on_Button_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
 			BUTTON_LEFT:
-				emit_signal("tile_clicked", x_loc, y_loc)
+				if !disabled:
+					emit_signal("tile_clicked", x_loc, y_loc)
 			BUTTON_RIGHT:
 				if flagged == true:
 					flagged = false

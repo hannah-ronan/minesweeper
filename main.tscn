@@ -196,9 +196,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="click_sound" type="AudioStreamPlayer2D" parent="."]
+[node name="button_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
-volume_db = 7.0
 [connection signal="pressed" from="main_menu/size_options/small" to="." method="_on_small_pressed"]
 [connection signal="pressed" from="main_menu/size_options/big" to="." method="_on_big_pressed"]
 [connection signal="pressed" from="in_game_controls/quit_button" to="." method="_on_quit_button_pressed"]

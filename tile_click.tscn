@@ -1,0 +1,26 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://animations/tile_click/tile_click_6.png" type="Texture" id=1]
+[ext_resource path="res://animations/tile_click/tile_click_1.png" type="Texture" id=2]
+[ext_resource path="res://animations/tile_click/tile_click_2.png" type="Texture" id=3]
+[ext_resource path="res://animations/tile_click/tile_click_3.png" type="Texture" id=4]
+[ext_resource path="res://animations/tile_click/tile_click_4.png" type="Texture" id=5]
+[ext_resource path="res://animations/tile_click/tile_click_5.png" type="Texture" id=6]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ null, ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 1 ), null ],
+"loop": false,
+"name": "pop",
+"speed": 12.0
+} ]
+
+[node name="animations" type="Node"]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 1 )
+animation = "pop"
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -1,10 +1,16 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://tile.gd" type="Script" id=1]
 [ext_resource path="res://Bungee-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://button.tres" type="StyleBox" id=3]
 [ext_resource path="res://button_hover.tres" type="StyleBox" id=4]
 [ext_resource path="res://button_pressed.tres" type="StyleBox" id=5]
+[ext_resource path="res://animations/tile_click/tile_click_6.png" type="Texture" id=6]
+[ext_resource path="res://animations/tile_click/tile_click_1.png" type="Texture" id=7]
+[ext_resource path="res://animations/tile_click/tile_click_2.png" type="Texture" id=8]
+[ext_resource path="res://animations/tile_click/tile_click_3.png" type="Texture" id=9]
+[ext_resource path="res://animations/tile_click/tile_click_4.png" type="Texture" id=10]
+[ext_resource path="res://animations/tile_click/tile_click_5.png" type="Texture" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 size = 25
@@ -12,9 +18,17 @@ extra_spacing_top = 2
 extra_spacing_bottom = 2
 font_data = ExtResource( 2 )
 
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ null, ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 6 ), null ],
+"loop": false,
+"name": "pop",
+"speed": 24.0
+} ]
+
 [node name="Button" type="Button"]
-margin_right = 23.0
-margin_bottom = 23.0
+margin_right = 2.8
+margin_bottom = 13.2
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/disabled = ExtResource( 5 )
@@ -28,4 +42,11 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -15.1527, -15.3521 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 2 )
+animation = "pop"
+centered = false
 [connection signal="gui_input" from="." to="." method="_on_Button_gui_input"]

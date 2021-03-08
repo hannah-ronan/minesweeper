@@ -21,7 +21,9 @@ func _init():
 	self.flagged = false
 
 
-
+func pop():
+	$AnimatedSprite.z_index = 10
+	$AnimatedSprite.play("pop")
 
 
 func _on_Button_gui_input(event):

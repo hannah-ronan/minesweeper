@@ -92,6 +92,7 @@ func tile_clicked(x_loc,y_loc):
 	if tiles[y_loc][x_loc].is_mine:
 		emit_signal("game_over", self)
 	else:
+		tiles[y_loc][x_loc].pop()
 		check_for_win()
 
 func check_for_win():

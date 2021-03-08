@@ -1,8 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://game.gd" type="Script" id=1]
-[ext_resource path="res://audio/explode.wav" type="AudioStream" id=2]
-[ext_resource path="res://audio/safe.wav" type="AudioStream" id=3]
 [ext_resource path="res://audio/win.wav" type="AudioStream" id=4]
 
 [node name="game" type="GridContainer"]
@@ -15,12 +13,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="safe_sound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
-
-[node name="explode_sound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 2 )
 
 [node name="win_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://tile.gd" type="Script" id=1]
 [ext_resource path="res://Bungee-Regular.ttf" type="DynamicFontData" id=2]
@@ -17,6 +17,9 @@
 [ext_resource path="res://animations/explode/explode_3.png" type="Texture" id=15]
 [ext_resource path="res://animations/explode/explode_2.png" type="Texture" id=16]
 [ext_resource path="res://animations/explode/explode_6.png" type="Texture" id=17]
+[ext_resource path="res://audio/safe.wav" type="AudioStream" id=18]
+[ext_resource path="res://audio/explode.wav" type="AudioStream" id=19]
+[ext_resource path="res://audio/flag.wav" type="AudioStream" id=20]
 
 [sub_resource type="DynamicFont" id=1]
 size = 25
@@ -60,4 +63,13 @@ scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 2 )
 animation = "explode"
 centered = false
+
+[node name="safe_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+
+[node name="explode_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 19 )
+
+[node name="flag_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 20 )
 [connection signal="gui_input" from="." to="." method="_on_Button_gui_input"]

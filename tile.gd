@@ -24,9 +24,15 @@ func _init():
 func pop():
 	$AnimatedSprite.z_index = 10
 	$AnimatedSprite.play("pop")
+	$safe_sound.play()
 func explode():
 	$AnimatedSprite.z_index=10
 	$AnimatedSprite.play("explode")
+	$explode_sound.play()
+func flag():
+	$AnimatedSprite.z_index =10
+	$AnimatedSprite.play("pop")
+	$flag_sound.play()
 
 func _on_Button_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
@@ -39,7 +45,9 @@ func _on_Button_gui_input(event):
 					flagged = false
 					self.add_stylebox_override("normal", button_style)
 					self.add_color_override("font_color",Color("ff048b"))
+					flag()
 				else:
 					flagged = true
 					self.add_stylebox_override("normal", button_flagged_style)
 					self.add_color_override("font_color",Color("e5003b"))
+					flag()
